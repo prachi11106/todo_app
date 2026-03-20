@@ -1,49 +1,423 @@
+/* ── Google Font ── */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+/* ── CSS Variables (light theme default) ── */
+:root {
+  --bg-page:       #fbb5b5;
+  --bg-container:  #f1dada;
+  --bg-input:      #ffffff;
+  --bg-task:       #eeeeee;
+  --text-primary:  #2a2a2a;
+  --text-done:     #d35656;
+  --border-input:  #d9a0a0;
+  --btn-bg:        #e07070;
+  --btn-text:      #ffffff;
+  --btn-hover:     #c85c5c;
+  --shadow:        rgba(0, 0, 0, 0.12);
+  --toggle-bg:     rgba(255,255,255,0.45);
+  --toggle-hover:  rgba(255,255,255,0.65);
+  --transition:    0.3s ease;
+}
+
+/* ── Dark theme overrides ── */
+[data-theme="dark"] {
+  --bg-page:       #1a1a2e;
+  --bg-container:  #16213e;
+  --bg-input:      #0f3460;
+  --bg-task:       #1e2d4a;
+  --text-primary:  #e0e0f0;
+  --text-done:     #e07070;
+  --border-input:  #2a4a7f;
+  --btn-bg:        #e94560;
+  --btn-text:      #ffffff;
+  --btn-hover:     #c73652;
+  --shadow:        rgba(0, 0, 0, 0.4);
+  --toggle-bg:     rgba(255,255,255,0.1);
+  --toggle-hover:  rgba(255,255,255,0.2);
+}
+
+/* ── Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: #fbb5b5;
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: var(--bg-page);
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  transition: background var(--transition);
+  min-height: 100vh;
 }
 
+/* ── Container ── */
 .container {
-  background: rgb(241, 218, 218);
-  padding: 20px;
-  width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background: var(--bg-container);
+  padding: 24px 20px;
+  width: 340px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px var(--shadow);
+  transition: background var(--transition), box-shadow var(--transition);
+}
 
+/* ── Header row ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 h1 {
-  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: color var(--transition);
 }
 
+/* ── Theme toggle button ── */
+.theme-toggle {
+  background: var(--toggle-bg);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: background var(--transition), transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--toggle-hover);
+  transform: rotate(20deg) scale(1.1);
+}
+
+/* Show sun in dark mode, moon in light mode */
+[data-theme="light"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun  { display: inline; }
+[data-theme="dark"]  .icon-sun  { display: none; }
+[data-theme="dark"]  .icon-moon { display: inline; }
+
+/* ── Input section ── */
 .input-section {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
 input {
   flex: 1;
-  padding: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-input);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
 }
 
-button {
-  padding: 8px;
+input::placeholder {
+  color: var(--text-primary);
+  opacity: 0.45;
+}
+
+input:focus {
+  border-color: var(--btn-bg);
+}
+
+/* ── Add button ── */
+#addBtn {
+  padding: 9px 16px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background var(--transition), transform 0.1s ease;
+}
+
+#addBtn:hover  { background: var(--btn-hover); }
+#addBtn:active { transform: scale(0.96); }
+
+/* ── Task list ── */
+#taskList {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 li {
-  margin-top: 10px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  background: #eee;
-  padding: 8px;
-  border-radius: 5px;
+  background: var(--bg-task);
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), opacity 0.2s;
+  gap: 8px;
 }
 
-.done {
-  text-decoration: line-through;
-  color: rgb(211, 86, 86);
+li:hover { opacity: 0.85; }
+
+li span {
+  flex: 1;
+  word-break: break-word;
 }
+
+/* ── Done state ── */
+.done span {
+  text-decoration: line-through;
+  color: var(--text-done);
+}
+
+/* ── Delete button ── */
+li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+li button:hover {
+  background: rgba(255, 0, 0, 0.12);
+}
+
+/* ── Task item restructure ── */
+li.task-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  cursor: default;
+  gap: 0;
+}
+
+li.task-item:hover { opacity: 1; }
+
+.task-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  cursor: default;
+}
+
+.task-label {
+  flex: 1;
+  word-break: break-word;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: color var(--transition);
+}
+
+.task-label:hover {
+  opacity: 0.75;
+}
+
+li.done .task-label {
+  text-decoration: line-through;
+  color: var(--text-done);
+}
+
+/* ── Progress bar (sits between top row and subtask section) ── */
+.progress-track {
+  height: 4px;
+  background: var(--border-input);
+  border-radius: 0;
+  margin: 0 12px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.task-item:has(.subtask-item) .progress-track {
+  opacity: 1;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--btn-bg);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-label {
+  font-size: 0.7rem;
+  color: var(--text-primary);
+  opacity: 0.5;
+  text-align: right;
+  padding: 2px 12px 0;
+  min-height: 16px;
+  transition: color var(--transition);
+}
+
+/* ── Chevron button ── */
+.chevron-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  color: var(--text-primary);
+  opacity: 0.45;
+  transition: opacity 0.15s, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chevron-btn:hover { opacity: 0.8; background: none; }
+
+.chevron-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.22s ease;
+}
+
+.chevron-btn.rotated .chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* ── Delete button ── */
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.delete-btn:hover { background: rgba(255, 0, 0, 0.12); }
+
+/* ── Subtask section (collapsed by default) ── */
+.subtask-section {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease, padding 0.2s ease;
+  padding: 0 12px;
+  border-top: 1.5px solid transparent;
+}
+
+.subtask-section.open {
+  max-height: 400px;
+  padding: 8px 12px 10px;
+  border-top-color: var(--border-input);
+}
+
+/* ── Subtask list ── */
+.subtask-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  background: var(--bg-input);
+  border-radius: 6px;
+  cursor: default;
+  opacity: 1;
+  transition: background var(--transition);
+}
+
+.subtask-item:hover { opacity: 1; }
+
+.subtask-checkbox {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--btn-bg);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.subtask-label {
+  flex: 1;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  transition: color var(--transition);
+}
+
+.subtask-done .subtask-label {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.subtask-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+  color: var(--text-primary);
+  opacity: 0;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: opacity 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+
+.subtask-item:hover .subtask-delete-btn { opacity: 0.45; }
+.subtask-delete-btn:hover { opacity: 1 !important; background: rgba(255,0,0,0.1); }
+
+/* ── Subtask input row ── */
+.subtask-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.subtask-input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border-input);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.subtask-input:focus { border-color: var(--btn-bg); }
+
+.subtask-add-btn {
+  padding: 6px 12px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+
+.subtask-add-btn:hover { background: var(--btn-hover); }

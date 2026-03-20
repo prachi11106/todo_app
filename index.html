@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <title>Todo App</title>
@@ -8,7 +8,13 @@
 <body>
 
   <div class="container">
-    <h1>My Todo List</h1>
+    <div class="header">
+      <h1>My Todo List</h1>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </div>
 
     <div class="input-section">
       <input type="text" id="taskInput" placeholder="Enter a task...">
