@@ -99,7 +99,6 @@ h1 {
   transform: rotate(20deg) scale(1.1);
 }
 
-/* Show sun in dark mode, moon in light mode */
 [data-theme="light"] .icon-moon { display: none; }
 [data-theme="light"] .icon-sun  { display: inline; }
 [data-theme="dark"]  .icon-sun  { display: none; }
@@ -176,18 +175,13 @@ li {
 
 li:hover { opacity: 0.85; }
 
-li span {
-  flex: 1;
-  word-break: break-word;
-}
+li span { flex: 1; word-break: break-word; }
 
-/* ── Done state ── */
 .done span {
   text-decoration: line-through;
   color: var(--text-done);
 }
 
-/* ── Delete button ── */
 li button {
   background: none;
   border: none;
@@ -199,292 +193,12 @@ li button {
   flex-shrink: 0;
 }
 
-li button:hover {
-  background: rgba(255, 0, 0, 0.12);
-}
+li button:hover { background: rgba(255, 0, 0, 0.12); }
 
-/* ── Task item restructure ── */
+/* ── Task item ── */
 li.task-item {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  padding: 0;
-  cursor: default;
-  gap: 0;
+  align-items: flex-start;  
+  gap: 4px;
 }
-
-li.task-item:hover { opacity: 1; }
-
-.task-top-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  cursor: default;
-}
-
-.task-label {
-  flex: 1;
-  word-break: break-word;
-  cursor: pointer;
-  color: var(--text-primary);
-  transition: color var(--transition);
-}
-
-.task-label:hover {
-  opacity: 0.75;
-}
-
-li.done .task-label {
-  text-decoration: line-through;
-  color: var(--text-done);
-}
-
-/* ── Progress bar (sits between top row and subtask section) ── */
-.progress-track {
-  height: 4px;
-  background: var(--border-input);
-  border-radius: 0;
-  margin: 0 12px;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.task-item:has(.subtask-item) .progress-track {
-  opacity: 1;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background: var(--btn-bg);
-  border-radius: 2px;
-  width: 0%;
-  transition: width 0.3s ease;
-}
-
-.progress-label {
-  font-size: 0.7rem;
-  color: var(--text-primary);
-  opacity: 0.5;
-  text-align: right;
-  padding: 2px 12px 0;
-  min-height: 16px;
-  transition: color var(--transition);
-}
-
-/* ── Chevron button ── */
-.chevron-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 2px;
-  display: flex;
-  align-items: center;
-  color: var(--text-primary);
-  opacity: 0.45;
-  transition: opacity 0.15s, transform 0.2s ease;
-  flex-shrink: 0;
-}
-
-.chevron-btn:hover { opacity: 0.8; background: none; }
-
-.chevron-icon {
-  width: 14px;
-  height: 14px;
-  transition: transform 0.22s ease;
-}
-
-.chevron-btn.rotated .chevron-icon {
-  transform: rotate(180deg);
-}
-
-/* ── Delete button ── */
-.delete-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  padding: 2px 4px;
-  border-radius: 4px;
-  transition: background 0.15s;
-  flex-shrink: 0;
-}
-
-.delete-btn:hover { background: rgba(255, 0, 0, 0.12); }
-
-/* ── Subtask section (collapsed by default) ── */
-.subtask-section {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.28s ease, padding 0.2s ease;
-  padding: 0 12px;
-  border-top: 1.5px solid transparent;
-}
-
-.subtask-section.open {
-  max-height: 400px;
-  padding: 8px 12px 10px;
-  border-top-color: var(--border-input);
-}
-
-/* ── Subtask list ── */
-.subtask-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-bottom: 6px;
-}
-
-.subtask-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 8px;
-  background: var(--bg-input);
-  border-radius: 6px;
-  cursor: default;
-  opacity: 1;
-  transition: background var(--transition);
-}
-
-.subtask-item:hover { opacity: 1; }
-
-.subtask-checkbox {
-  width: 15px;
-  height: 15px;
-  accent-color: var(--btn-bg);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.subtask-label {
-  flex: 1;
-  font-size: 0.88rem;
-  color: var(--text-primary);
-  transition: color var(--transition);
-}
-
-.subtask-done .subtask-label {
-  text-decoration: line-through;
-  opacity: 0.5;
-}
-
-.subtask-delete-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.7rem;
-  color: var(--text-primary);
-  opacity: 0;
-  padding: 2px 4px;
-  border-radius: 4px;
-  transition: opacity 0.15s, background 0.15s;
-  flex-shrink: 0;
-}
-
-.subtask-item:hover .subtask-delete-btn { opacity: 0.45; }
-.subtask-delete-btn:hover { opacity: 1 !important; background: rgba(255,0,0,0.1); }
-
-/* ── Subtask input row ── */
-.subtask-input-row {
-  display: flex;
-  gap: 6px;
-}
-
-.subtask-input {
-  flex: 1;
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1.5px solid var(--border-input);
-  background: var(--bg-input);
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 0.88rem;
-  outline: none;
-  transition: background var(--transition), color var(--transition), border-color var(--transition);
-}
-
-.subtask-input:focus { border-color: var(--btn-bg); }
-
-.subtask-add-btn {
-  padding: 6px 12px;
-  background: var(--btn-bg);
-  color: var(--btn-text);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: background var(--transition);
-}
-
-.subtask-add-btn:hover { background: var(--btn-hover); }
-/* ── Search bar ── */
-.search-bar {
-  width: 100%;
-  padding: 9px 12px;
-  border-radius: 8px;
-  border: 1.5px solid var(--border-input);
-  background: var(--bg-input);
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 0.95rem;
-  outline: none;
-  margin-bottom: 8px;
-  box-sizing: border-box;
-  transition: background var(--transition), color var(--transition), border-color var(--transition);
-}
-.search-bar:focus { border-color: var(--btn-bg); }
-
-/* ── Priority badges ── */
-.priority-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 99px;
-  flex-shrink: 0;
-  cursor: pointer;
-  user-select: none;
-  transition: opacity 0.15s;
-}
-.priority-badge:hover { opacity: 0.75; }
-.priority-high   { background: #FCEBEB; color: #A32D2D; }
-.priority-medium { background: #FAEEDA; color: #854F0B; }
-.priority-low    { background: #EAF3DE; color: #3B6D11; }
-.priority-none   { background: var(--border-input); color: var(--text-primary); opacity: 0.5; }
-
-/* ── Due date ── */
-.due-date-input {
-  font-size: 0.75rem;
-  border: none;
-  background: transparent;
-  color: var(--text-primary);
-  font-family: inherit;
-  cursor: pointer;
-  opacity: 0.55;
-  padding: 0;
-  width: 110px;
-  transition: opacity 0.15s;
-}
-.due-date-input:focus { outline: none; opacity: 1; }
-.due-overdue { color: #A32D2D !important; opacity: 1 !important; font-weight: 700; }
-
-/* ── Drag handle ── */
-.drag-handle {
-  cursor: grab;
-  color: var(--text-primary);
-  opacity: 0.25;
-  font-size: 1rem;
-  padding: 0 2px;
-  flex-shrink: 0;
-  line-height: 1;
-  transition: opacity 0.15s;
-}
-.drag-handle:hover { opacity: 0.6; }
-.task-item.dragging { opacity: 0.4; border: 2px dashed var(--btn-bg); }
-.task-item.drag-over { border-top: 2px solid var(--btn-bg); }
-
-/* ── Hidden task (filtered out) ── */
-.task-item.hidden { display: none; }
