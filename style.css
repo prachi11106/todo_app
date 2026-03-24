@@ -421,3 +421,70 @@ li.done .task-label {
 }
 
 .subtask-add-btn:hover { background: var(--btn-hover); }
+/* ── Search bar ── */
+.search-bar {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-input);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.search-bar:focus { border-color: var(--btn-bg); }
+
+/* ── Priority badges ── */
+.priority-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s;
+}
+.priority-badge:hover { opacity: 0.75; }
+.priority-high   { background: #FCEBEB; color: #A32D2D; }
+.priority-medium { background: #FAEEDA; color: #854F0B; }
+.priority-low    { background: #EAF3DE; color: #3B6D11; }
+.priority-none   { background: var(--border-input); color: var(--text-primary); opacity: 0.5; }
+
+/* ── Due date ── */
+.due-date-input {
+  font-size: 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0.55;
+  padding: 0;
+  width: 110px;
+  transition: opacity 0.15s;
+}
+.due-date-input:focus { outline: none; opacity: 1; }
+.due-overdue { color: #A32D2D !important; opacity: 1 !important; font-weight: 700; }
+
+/* ── Drag handle ── */
+.drag-handle {
+  cursor: grab;
+  color: var(--text-primary);
+  opacity: 0.25;
+  font-size: 1rem;
+  padding: 0 2px;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: opacity 0.15s;
+}
+.drag-handle:hover { opacity: 0.6; }
+.task-item.dragging { opacity: 0.4; border: 2px dashed var(--btn-bg); }
+.task-item.drag-over { border-top: 2px solid var(--btn-bg); }
+
+/* ── Hidden task (filtered out) ── */
+.task-item.hidden { display: none; }
