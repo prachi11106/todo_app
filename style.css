@@ -202,3 +202,25 @@ li.task-item {
   align-items: flex-start;  
   gap: 4px;
 }
+/* ── Edit Button ── */
+.edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.edit-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ── Edit Input ── */
+.edit-input {
+  flex: 1;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-input);
+  font-size: 0.9rem;
+}

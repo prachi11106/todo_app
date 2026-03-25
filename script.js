@@ -126,7 +126,44 @@ function addTask(taskText, isDone = false, priority = "none", dueVal = "") {
   dueInput.className = "due-date-input";
   dueInput.value     = dueVal;
   checkOverdue(dueInput);
-  dueInput.addEventListener("change", () => { checkOverdue(dueInput); saveTasks(); });
+  dueInput.addEventListener("change", () => { checkOverdue(dueInput); saveTasks(); }); 
+  // ── Edit button ──
+const editBtn = document.createElement("button");
+editBtn.className = "edit-btn";
+editBtn.textContent = "✏️";
+
+editBtn.addEventListener("click", e => {
+  e.stopPropagation();
+
+  const currentText = span.textContent;
+
+  const inputField = document.createElement("input");
+  inputField.type = "text";
+  inputField.value = currentText;
+  inputField.className = "edit-input";
+
+  // Replace text with input
+  topRow.replaceChild(inputField, span);
+  inputField.focus();
+
+  function saveEdit() {
+    const newText = inputField.value.trim();
+    if (newText !== "") {
+      span.textContent = newText;
+    }
+    topRow.replaceChild(span, inputField);
+    saveTasks();
+  }
+
+  // Save on Enter
+  inputField.addEventListener("keypress", e => {
+    if (e.key === "Enter") saveEdit();
+  });
+
+  // Save on blur
+  inputField.addEventListener("blur", saveEdit);
+});
+
 
   // ── Delete ──
   const delBtn = document.createElement("button");
@@ -139,6 +176,7 @@ function addTask(taskText, isDone = false, priority = "none", dueVal = "") {
   topRow.appendChild(span);
   topRow.appendChild(badge);
   topRow.appendChild(dueInput);
+  topRow.appendChild(editBtn);
   topRow.appendChild(delBtn);
 
   // ── Subtask section ──
